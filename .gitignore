@@ -1,0 +1,41 @@
+# ignore temporary files
+*.swp
+
+# ignore debugging files
+program-dump.txt
+exceptions.log
+
+# ignore IntelliJ project files
+.idea/
+## module library
+*.iml
+## project and library info
+*.ipr
+## personal data such as IDE arrangement
+*.iws
+
+# ignore Eclipse project files
+.project
+.classpath
+.settings/
+
+# ignore build files
+bin/
+*.class
+build/
+
+# ignore gradle files
+.gradle/
+.gradletasknamecache
+gradle-app.setting
+misc/svn-build.gradle
+
+## make sure to include this since jars are normally ignored
+!gradle-wrapper.jar
+
+# Ignore gradle.properties
+gradle.properties
+*/gradle.properties
+
+# Ignore logs
+*.log
