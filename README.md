@@ -11,7 +11,7 @@ Print service works through the `CupsClient.java` API
 
 This library wasn't widely tested. If you find bugs, either submit a new issue or fork/fix/submit PR.
 
-Please use the `master` branch for all testing and troubleshooting.
+Please use the `develop` branch for all testing and troubleshooting.
 
 ## External libraries
 
