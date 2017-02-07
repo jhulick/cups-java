@@ -13,11 +13,16 @@ import org.cups4j.CupsPrinter;
 import org.cups4j.operations.AuthInfo;
 import org.cups4j.operations.cups.CupsGetPPDOperation;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CupsPpd {
 
-    CupsPpdRec ppdRec;
-    AuthInfo auth;
-    String serviceResolution = "";
+    private static final Logger logger = LoggerFactory.getLogger(CupsPpd.class);
+
+    protected CupsPpdRec ppdRec;
+    protected AuthInfo auth;
+    protected String serviceResolution = "";
 
     public CupsPpd(AuthInfo auth) {
         ppdRec = new CupsPpdRec();
@@ -63,9 +68,11 @@ public class CupsPpd {
     }
 
     private String getCupsString(PpdUiList uiList) {
+
         if (uiList == null) {
             return "";
         }
+
         String cupsString = "";
         boolean isNext = false;
         for (PpdSectionList group : uiList) {
@@ -73,10 +80,11 @@ public class CupsPpd {
                 if (section.defaultValue.equals(section.savedValue)) {
                     continue;
                 }
-                if (isNext)
+                if (isNext) {
                     cupsString = cupsString + "#";
-                else
+                } else {
                     isNext = true;
+                }
                 cupsString = cupsString + section.name + ":" +
                         section.commandType.toString() + ":" +
                         section.savedValue;
@@ -93,11 +101,14 @@ public class CupsPpd {
     }
 
     public void createPpdRec(String ppdString, byte[] md5) throws IOException {
+
         ppdRec.isUpdated = false;
+
         byte[] mdBytes = {0};
         if (md5 == null) {
             md5 = mdBytes;
         }
+
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             mdBytes = md.digest(ppdString.getBytes());
@@ -106,7 +117,7 @@ public class CupsPpd {
                 return;
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
         }
 
         ppdRec.ppdMd5 = mdBytes;
@@ -122,12 +133,15 @@ public class CupsPpd {
         while ((line = reader.readLine()) != null) {
             line = line.trim();
             line = line.replace('\t', ' ');
+
             if (!line.startsWith("*")) {
                 continue;
             }
+
             if (line.startsWith("*%")) {
                 continue;
             }
+
             //System.out.println(line);
             int cmdPos = line.indexOf(':');
             if (cmdPos < 2) {
@@ -146,6 +160,7 @@ public class CupsPpd {
             //if (cmdVal0.contains("Resolution")) {
             //    System.out.println();
             //}
+
             if (commandpos > 0) {
                 command = cmdVal0.substring(0, commandpos);
                 option = cmdVal0.substring(commandpos).trim();
@@ -153,6 +168,7 @@ public class CupsPpd {
                 command = cmdVal0.trim();
                 option = "";
             }
+
             command = command.substring(1);
             if (command.length() < 2)
                 continue;

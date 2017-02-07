@@ -17,7 +17,6 @@ public class AdditionalKeyStoresTrustManager implements X509TrustManager {
 
     protected ArrayList<X509TrustManager> x509TrustManagers = new ArrayList<X509TrustManager>();
 
-
     protected AdditionalKeyStoresTrustManager(KeyStore... additionalkeyStores) {
         final ArrayList<TrustManagerFactory> factories = new ArrayList<TrustManagerFactory>();
 
@@ -37,8 +36,6 @@ public class AdditionalKeyStoresTrustManager implements X509TrustManager {
             throw new RuntimeException(e);
         }
 
-
-
         /*
          * Iterate over the returned trustmanagers, and hold on
          * to any that are X509TrustManagers
@@ -47,7 +44,6 @@ public class AdditionalKeyStoresTrustManager implements X509TrustManager {
             for (TrustManager tm : tmf.getTrustManagers())
                 if (tm instanceof X509TrustManager)
                     x509TrustManagers.add((X509TrustManager) tm);
-
 
         if (x509TrustManagers.size() == 0)
             throw new RuntimeException("Couldn't find any X509TrustManagers");

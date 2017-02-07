@@ -5,7 +5,12 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.auth.DigestScheme;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class AuthHeader {
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthHeader.class);
 
     static void makeAuthHeader(HttpRequest request, AuthInfo auth) {
 
@@ -24,7 +29,7 @@ public class AuthHeader {
             try {
                 auth.setAuthHeader(basicScheme.authenticate(creds, request));
             } catch (Exception e) {
-                System.err.println(e.toString());
+                logger.error(e.toString());
                 auth.reason = AuthInfo.AUTH_BAD;
             }
         } else if (auth.getType().equals("Digest")) {
@@ -34,9 +39,9 @@ public class AuthHeader {
                 auth.setAuthHeader(digestScheme.authenticate(creds, request));
                 String test0 = auth.getHttpHeader().getValue();
                 String test1 = auth.getAuthHeader().getValue();
-                System.out.println();
+//                System.out.println();
             } catch (Exception e) {
-                System.err.println(e.toString());
+                logger.error(e.toString());
                 auth.reason = AuthInfo.AUTH_BAD;
             }
         } else {

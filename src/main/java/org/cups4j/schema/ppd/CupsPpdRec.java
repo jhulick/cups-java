@@ -2,11 +2,11 @@ package org.cups4j.schema.ppd;
 
 public class CupsPpdRec {
 
-    byte[] ppdMd5;
-    boolean isUpdated = false;
-    PpdUiList stdList;
-    PpdUiList extraList;
-    PpdServiceInfo ppdServiceInfo;
+    protected byte[] ppdMd5;
+    protected boolean isUpdated = false;
+    protected PpdUiList stdList;
+    protected PpdUiList extraList;
+    protected PpdServiceInfo ppdServiceInfo;
 
     public CupsPpdRec() {
         byte[] md5 = {};

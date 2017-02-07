@@ -3,12 +3,12 @@ package org.cups4j.schema.ppd;
 import java.util.ArrayList;
 
 public class PpdItemList extends ArrayList<PpdItem> {
-    String name;
-    String text;
-    String defaultValue = "";
-    String savedValue = "";
-    CupsType commandType;
 
+    protected String name;
+    protected String text;
+    protected String defaultValue = "";
+    protected String savedValue = "";
+    protected CupsType commandType;
 
     public String getName() {
         return name;

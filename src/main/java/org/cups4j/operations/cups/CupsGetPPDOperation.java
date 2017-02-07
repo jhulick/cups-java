@@ -12,7 +12,12 @@ import org.cups4j.operations.OperationResult;
 import org.cups4j.ippclient.Attribute;
 import org.cups4j.ippclient.AttributeGroup;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CupsGetPPDOperation extends IppOperation {
+
+    private static final Logger logger = LoggerFactory.getLogger(CupsGetPPDOperation.class);
 
     public CupsGetPPDOperation() {
         super();
@@ -24,11 +29,9 @@ public class CupsGetPPDOperation extends IppOperation {
         bufferSize = 8192;
     }
 
-
     public String getPPDFile(URL printerUrl, AuthInfo auth) throws UnsupportedEncodingException, IOException, Exception {
 
         OperationResult result = request(printerUrl, auth);
-
 
         //If printer is external,
         //cups responds with the correct url to retrive the ppd.
@@ -43,6 +46,7 @@ public class CupsGetPPDOperation extends IppOperation {
                 }
             }
         }
+
         if (urlStr != null) {
             if (urlStr.startsWith("ipps://")) {
                 urlStr = urlStr.replace("ipps://", "https://");
@@ -61,7 +65,7 @@ public class CupsGetPPDOperation extends IppOperation {
         try {
             buf = buf.substring(buf.indexOf("*"));
         } catch (Exception e) {
-            System.out.println("Ppd Buffer is empty");
+            logger.error("Ppd Buffer is empty");
         }
         return buf;
     }
@@ -70,6 +74,5 @@ public class CupsGetPPDOperation extends IppOperation {
     protected void setAttributes() throws UnsupportedEncodingException {
         header = IppHeader.getUriTag(header, "printer-uri", url);
     }
-
 
 }

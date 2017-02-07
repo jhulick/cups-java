@@ -9,10 +9,14 @@ import org.cups4j.operations.AuthInfo;
 import org.cups4j.operations.IppHeader;
 import org.cups4j.operations.IppOperation;
 import org.cups4j.operations.OperationResult;
-
 import org.cups4j.ippclient.IppTag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class IppPrintJobOperation extends IppOperation {
+
+    private static final Logger logger = LoggerFactory.getLogger(IppPrintJobOperation.class);
 
     private CupsPrintJob printJob;
     private String userName;
@@ -52,8 +56,7 @@ public class IppPrintJobOperation extends IppOperation {
         }
     }
 
-    private void getJobAttributes(String[] attributeBlocks)
-            throws UnsupportedEncodingException {
+    private void getJobAttributes(String[] attributeBlocks) throws UnsupportedEncodingException {
 
         if (attributeBlocks == null) {
             return;
@@ -65,7 +68,7 @@ public class IppPrintJobOperation extends IppOperation {
         for (int i = 0; i < l; i++) {
             String[] attr = attributeBlocks[i].split(":");
             if ((attr == null) || (attr.length != 3)) {
-                System.err.println("Invalid attribute block:" + attributeBlocks[i]);
+                logger.error("Invalid attribute block:" + attributeBlocks[i]);
                 continue;
             }
 
@@ -90,7 +93,7 @@ public class IppPrintJobOperation extends IppOperation {
             } else if (tagName.equals("resolution")) {
                 header = IppHeader.getResolution(header, name, value);
             } else {
-                System.err.println("Unknown attribute block:" + attributeBlocks[i]);
+                logger.error("Unknown attribute block:" + attributeBlocks[i]);
             }
         }
     }

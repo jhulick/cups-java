@@ -3,8 +3,8 @@ package org.cups4j.schema.ppd;
 import java.util.ArrayList;
 
 public class PpdSectionList extends ArrayList<PpdItemList> {
-    String name;
-    String text;
+    protected String name;
+    protected String text;
 
     public String getName() {
         return name;

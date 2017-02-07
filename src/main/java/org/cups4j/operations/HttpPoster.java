@@ -21,15 +21,19 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.cups4j.ssl.SSLScheme;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpPoster {
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpPoster.class);
 
     private static int SOCKET_TIMEOUT = 10000;
     private static int CONNECTION_TIMEOUT = 5000;
 
     private final static String IPP_MIME_TYPE = "application/ipp";
 
-    static OperationResult sendRequest(
-            URL url, ByteBuffer ippBuf, InputStream documentStream, final AuthInfo auth) throws IOException {
+    static OperationResult sendRequest(URL url, ByteBuffer ippBuf, InputStream documentStream, final AuthInfo auth) throws IOException {
 
         final OperationResult opResult = new OperationResult();
 
@@ -40,7 +44,6 @@ public class HttpPoster {
         if (url == null) {
             return null;
         }
-
 
         DefaultHttpClient client = new DefaultHttpClient();
 
@@ -58,7 +61,7 @@ public class HttpPoster {
         try {
             httpPost = new HttpPost(url.toURI());
         } catch (Exception e) {
-            System.out.println(e.toString());
+            logger.error(e.toString());
             return null;
         }
 
@@ -107,7 +110,6 @@ public class HttpPoster {
         };
 
         if (url.getProtocol().equals("https")) {
-
             Scheme scheme = SSLScheme.getScheme();
             if (scheme == null)
                 return null;

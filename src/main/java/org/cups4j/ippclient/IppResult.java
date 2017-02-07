@@ -3,9 +3,10 @@ package org.cups4j.ippclient;
 import java.util.List;
 
 public class IppResult {
-    String _ippStatusResponse = null;
-    List<AttributeGroup> _attributeGroupList = null;
-    byte buf[];
+
+    protected String ippStatusResponse = null;
+    protected List<AttributeGroup> attributeGroupList = null;
+    protected byte buf[];
 
     public IppResult() {
     }
@@ -14,28 +15,28 @@ public class IppResult {
      * @return
      */
     public String getIppStatusResponse() {
-        return _ippStatusResponse;
+        return ippStatusResponse;
     }
 
     /**
      * @param statusResponse
      */
     public void setIppStatusResponse(String statusResponse) {
-        _ippStatusResponse = statusResponse;
+        ippStatusResponse = statusResponse;
     }
 
     /**
      * @return
      */
     public List<AttributeGroup> getAttributeGroupList() {
-        return _attributeGroupList;
+        return attributeGroupList;
     }
 
     /**
      * @param group
      */
     public void setAttributeGroupList(List<AttributeGroup> group) {
-        _attributeGroupList = group;
+        attributeGroupList = group;
     }
 
     public byte[] getBuf() {
