@@ -1,5 +1,5 @@
 # CupsJava
-After frustrastions trying the existing Cups4j and IPP java libs not providing security I needed, I created this update to the core cups4j project. It only includes basic TLS handling and IPP with basic authentication, which was sufficient for my needs.  
+After frustrastions trying the existing Cups4j and IPP java libs and finding they lack the security I needed, I created this update to the core cups4j project. It only includes basic TLS handling and IPP with basic authentication, which was sufficient for my needs.  
 
 ### Print Service Usage
 
